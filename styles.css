@@ -1,0 +1,360 @@
+/* === CSS Custom Properties === */
+:root {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1c1c1c;
+  --text-primary: #e8e8e8;
+  --text-secondary: #909090;
+  --text-dim: #606060;
+  --accent-orange: #c77d40;
+  --accent-orange-glow: rgba(199, 125, 64, 0.12);
+  --accent-cyan: #4a8c8c;
+  --accent-cyan-glow: rgba(74, 140, 140, 0.1);
+  --font-stack: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* === Reset === */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-stack);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* === Hero Section === */
+#hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+#hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out-expo);
+}
+
+.hero-overlay.revealed {
+  opacity: 1;
+}
+
+.hero-name {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+  line-height: 1.1;
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+}
+
+/* Scroll Hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.scroll-arrow {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-right: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.4);
+  transform: rotate(45deg);
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% {
+    transform: rotate(45deg) translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: rotate(45deg) translateY(8px);
+    opacity: 0.8;
+  }
+}
+
+/* === Gallery Section === */
+#gallery {
+  padding: 120px 0;
+}
+
+.gallery-item {
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+  padding: 60px 8vw;
+  gap: 80px;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+}
+
+.gallery-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item.reverse {
+  flex-direction: row-reverse;
+}
+
+.gallery-image {
+  flex: 1;
+  max-width: 55%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-image canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 1.5s var(--ease-out-expo);
+}
+
+.gallery-item.visible .gallery-image canvas {
+  transform: scale(1.02);
+}
+
+.gallery-info {
+  flex: 0 0 320px;
+}
+
+.gallery-num {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--accent-orange);
+  margin-bottom: 1rem;
+}
+
+.gallery-info h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+}
+
+.gallery-info p {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* === Brands Section === */
+#brands {
+  padding: 100px 0 80px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.section-label {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.section-label.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.danmaku-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.danmaku-track {
+  position: relative;
+  height: 48px;
+  overflow: hidden;
+}
+
+.danmaku-inner {
+  display: flex;
+  gap: 80px;
+  width: max-content;
+  will-change: transform;
+}
+
+.danmaku-inner span {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.2);
+  transition: color 0.4s var(--ease-out-expo);
+  cursor: default;
+  user-select: none;
+}
+
+.danmaku-inner span:hover {
+  color: var(--accent-orange);
+}
+
+/* Danmaku animations - left to right */
+@keyframes danmaku-ltr {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0%); }
+}
+
+.track-1 .danmaku-inner { animation: danmaku-ltr 35s linear infinite; }
+.track-2 .danmaku-inner { animation: danmaku-ltr 28s linear infinite; }
+.track-3 .danmaku-inner { animation: danmaku-ltr 42s linear infinite; }
+.track-4 .danmaku-inner { animation: danmaku-ltr 32s linear infinite; }
+
+/* === Slogan Section === */
+#slogan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 100px 6vw 60px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+}
+
+#slogan.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slogan-main {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.slogan-sub {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+  margin-bottom: 80px;
+}
+
+.site-footer {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+/* === Responsive === */
+@media (max-width: 1024px) {
+  .gallery-item,
+  .gallery-item.reverse {
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px 6vw;
+    min-height: auto;
+  }
+
+  .gallery-image {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .gallery-info {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .gallery-info h3 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-name {
+    font-size: 2.4rem;
+  }
+
+  .gallery-item {
+    padding: 30px 5vw;
+  }
+
+  .danmaku-inner span {
+    font-size: 1.1rem;
+  }
+
+  .danmaku-container {
+    gap: 24px;
+  }
+
+  #brands {
+    padding: 60px 0;
+  }
+
+  .slogan-main {
+    font-size: 1.8rem;
+  }
+
+  .scroll-hint {
+    bottom: 24px;
+  }
+}
